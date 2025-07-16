@@ -5,7 +5,7 @@ import { PrismaClient } from "../../generated/prisma";
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
 const adapter = new PrismaPg({
-	connectionString: process.env.POSTGRES_PRISMA_URL,
+	connectionString: process.env.DATABASE_URL,
 });
 const prisma: PrismaClient =
 	globalForPrisma.prisma || new PrismaClient({ adapter });
@@ -13,6 +13,7 @@ const prisma: PrismaClient =
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 
 export default async function Home() {
+	console.log(process.env.DATABASE_URL);
 	await prisma.user.findUnique({ where: { id: "123" } });
 	return (
 		<div className={styles.page}>
