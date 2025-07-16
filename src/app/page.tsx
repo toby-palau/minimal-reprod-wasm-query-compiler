@@ -1,10 +1,12 @@
+"use server";
+
 import Image from "next/image";
 import styles from "./page.module.css";
 import { getUser } from "@/services/DatabaseService";
 
 export default async function Home() {
 	const user = await getUser("123");
-	console.log({ user });
+	console.log("Home", { user });
 	return (
 		<div className={styles.page}>
 			<main className={styles.main}>
