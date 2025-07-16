@@ -14,7 +14,8 @@ if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 
 export default async function Home() {
 	console.log(process.env.DATABASE_URL);
-	await prisma.user.findUnique({ where: { id: "123" } });
+	const user = await prisma.user.findUnique({ where: { id: "123" } });
+	console.log({ user });
 	return (
 		<div className={styles.page}>
 			<main className={styles.main}>
