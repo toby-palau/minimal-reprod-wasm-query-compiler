@@ -1,20 +1,9 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "../../generated/prisma";
-
-const globalForPrisma = global as unknown as { prisma: PrismaClient };
-const adapter = new PrismaPg({
-	connectionString: process.env.DATABASE_URL,
-});
-const prisma: PrismaClient =
-	globalForPrisma.prisma || new PrismaClient({ adapter });
-
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+import { getUser } from "@/services/DatabaseService";
 
 export default async function Home() {
-	console.log(process.env.DATABASE_URL);
-	const user = await prisma.user.findUnique({ where: { id: "123" } });
+	const user = await getUser("123");
 	console.log({ user });
 	return (
 		<div className={styles.page}>
