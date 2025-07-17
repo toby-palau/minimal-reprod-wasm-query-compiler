@@ -1,12 +1,18 @@
-"use server";
+"use client";
 
 import Image from "next/image";
 import styles from "./page.module.css";
 import { getUser } from "@/services/DatabaseService";
+import { useEffect } from "react";
 
-export default async function Home() {
-	const user = await getUser("123");
-	console.log("Home", { user });
+export default function Home() {
+	useEffect(() => {
+		(async () => {
+			const user = await getUser("123");
+			console.log("Home", { user });
+		})();
+	}, []);
+
 	return (
 		<div className={styles.page}>
 			<main className={styles.main}>
